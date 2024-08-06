@@ -1,0 +1,84 @@
+{%extends 'dashboard-base.html'%}
+{%block title%}  <h3 class="fw-bold fs-4 mb-3">Trash</h3> {%endblock%}
+{%block content%}
+{%if contacts%}
+<div class="row">
+    {%for contact in contacts%}
+    <div class="col-md-6">
+  
+      <div
+        class="card mt-3 text-decoration-none"
+      >
+        <div class="card-body d-flex justify-content-between">
+          <div class="d-flex align-items-center">
+            <img
+              src="https://via.placeholder.com/40"
+              class="rounded-circle me-2"
+              alt="Profile Picture"
+            />
+            <div>
+              <h5 class="card-title mb-0">{{contact.name}}</h5>
+              <p class="card-text text-muted">{{contact.email}}</p>
+            </div>
+          </div>
+          <p class="card-text">{{contact.phone_number}}</p>
+        </div>
+        <div class="d-flex justify-content-between align-items-center m-3">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Restore
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Restore Contact</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              This contact will be restored and removed from the trash.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <a href="{%url 'restore-contact' contact.id %}" class="btn btn-primary">Confirm</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteforeverModal">
+      Delete Forever
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="deleteforeverModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Forever</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+           This contact will be deleted forever. Are you sure you want to delete it forever?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <a href="{%url 'delete-contact' contact.id %}" class="btn btn-primary">Confirm</a>
+          </div>
+        </div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+{%else%}
+<div class="alert alert-danger text-center">
+   The trash is empty.
+  </div>
+{%endif%}
+{%endblock%}
